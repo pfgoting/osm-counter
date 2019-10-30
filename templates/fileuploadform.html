@@ -1,0 +1,62 @@
+<html>
+    <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+        <title>OSM Counter</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        {# Daterange #}
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    </head>
+
+    <body>
+        <div class="container-fluid">
+            <h5>OSM User-changes Counter</h5>
+{#             <form enctype="multipart/form-data" action="/upload" method="post">
+                <input type="file" name="filearg" />
+                <br />
+                <br />
+                <input type="submit" value="upload" />
+            </form> #}
+            <form enctype="multipart/form-data" action="{{ url_for('calculate') }}" method="post">
+              <div class="form-group">
+                <label for="fileInp">Upload list of users to count in csv format</label>
+                <input type="file" class="form-control-file form-control-sm" name="file" />
+                <br>
+
+                <label>Date range for counter</label>
+                <br>
+                <input type="text" class="form-control-sm" name="daterange" value="01/01/2019 - 01/15/2019" />
+                <br>
+                <br>
+
+                <label for="email">Email</label>
+                <br>
+                <input type="email" name="email" class="form-control-sm" aria-describedby="help">
+                <small id="help" class="form-text text-muted">
+                  Email address where to send the result of the calculation.
+                </small>
+
+                <input type="submit" class="btn btn-primary mb-2" value="Calculate" />
+              </div>
+            </form>
+        </div>
+
+        <script>
+            $(function() {
+              $('input[name="daterange"]').daterangepicker({
+                opens: 'left',
+                showDropdowns: true
+              }, function(start, end, label) {
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+              });
+            });
+        </script>
+    </body>
+
+</html>
